@@ -535,7 +535,7 @@
 
             <section id="action_form" class="js-height-full-all page-section bg-gray-lighter pt-0 pb-0">
               <div class="row" style="height:100%;">
-                <div class="m-auto">
+                <div id="form-field" class="m-auto">
                   <div class="container-fluid relative ">
                     <h2 class="section-title font-alt mb-20 mb-sm-10">
                       Хочу їхати!
@@ -550,18 +550,15 @@
                       <div class="col-md-8">
                         <form method="post" action="#" id="form" role="form" class="form" name="contact" netlify>
                             <div class="mb-20 mb-md-10">
-                                <!-- Name -->
-                                <input type="text" name="name" id="name" class="input-md form-control" placeholder="Ім'я'" maxlength="100">
+                                <input required type="text" name="name" id="name" class="input-md form-control" placeholder="Ім'я'" maxlength="100">
                             </div>
 
                             <div class="mb-20 mb-md-10">
-                                <!-- Email -->
-                                <input type="text" name="phone" id="phone" class="input-md form-control" placeholder="Номер телефону" maxlength="100">
+                                <input required type="text" name="phone" id="phone" class="input-md form-control" placeholder="Номер телефону" maxlength="100">
                             </div>
 
                             <div class="mb-20 mb-md-10">
-                                <!-- Password -->
-                                <input type="email" name="email" id="email" class="input-md form-control" placeholder="Електронна пошта" maxlength="100">
+                                <input required type="email" name="email" id="email" class="input-md form-control" placeholder="Електронна пошта" maxlength="100">
                             </div>
 
                             <div class="mb-50 mb-md-10">
@@ -578,7 +575,17 @@
                     </div>
                   </div>
                 </div>
-
+                <div id="form-success-field" class="m-auto text-center">
+                  <div class="mb-60  form-success">
+                    <h1>Форму успішно відправлено</h1>
+                  </div>
+                  <div class="circle-loader">
+                    <div class="checkmark draw"></div>
+                  </div>
+                  <div class="mt-40 mb-20 form-success">
+                    <h3>Ми зв'яжемось з Вами найближчім часом</h3>
+                  </div>
+                </div>
               </div>
 
             </section>
@@ -695,13 +702,24 @@
         <!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
         <script src="https://apps.elfsight.com/p/platform.js" defer></script>
         <script type="text/javascript">
-        $("#form").submit(function(e) {
-        e.preventDefault();
 
-        var $form = $(this);
-        $.post($form.attr("action"), $form.serialize()).then(function() {
-          alert("Thank you!");
-        });
+        $("#form").submit(function(e) {
+          e.preventDefault();
+          var $form = $(this);
+          $.post($form.attr("action"), $form.serialize()).then(function() {
+            $('#form-field').css("display","none");
+            $('#form-success-field').css("display","block");
+            setTimeout(SuccAnimate, 1600);
+
+            function SuccAnimate() {
+              $('.circle-loader').addClass('load-complete load-success');
+              $('.checkmark').show();
+              $('.form-success').css({
+                  "opacity":"0",
+                  "display":"block",
+              }).show().animate({opacity:1})
+            };
+          });
         });
         </script>
 
