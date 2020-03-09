@@ -7,7 +7,9 @@
      --------------------------------------------- */
 
     $(window).load(function(){
-
+        $(function() {
+          $('a[href*="#"]').smoothscroll();
+        });
         // Page loader
 
         $("body").imagesLoaded(function(){
@@ -1015,6 +1017,7 @@ function initWorkFilter(){
 function js_height_init(){
     (function($){
         $(".js-height-full").height($(window).height()-120);
+        $(".js-height-full-all").height($(window).height());
         $(".js-height-parent").each(function(){
             $(this).height($(this).parent().first().height());
         });
